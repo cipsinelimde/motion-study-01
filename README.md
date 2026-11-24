@@ -29,7 +29,14 @@ Tek dosya olduğu için doğrudan tarayıcıda açılabilir:
 xdg-open index.html      # veya: python3 -m http.server 8000
 ```
 
-Yayın adresi: <https://cipsinelimde.github.io/motion-study-01/>
+- **Canlı:** <https://cipsinelimde.github.io/motion-study-01/>
+- **Video (10.00 s, 1920×1080, 30 fps, VP9):**
+  <https://cipsinelimde.github.io/motion-study-01/motion-study-01.webm>
+- **Poster:** <https://cipsinelimde.github.io/motion-study-01/poster.png>
+- **Kaynak:** <https://github.com/cipsinelimde/motion-study-01>
+
+> Sayfa bir showreel gibi çalışır: 10 saniyede bir baştan başlar.
+> Boşluk tuşu veya tıklama ile duraklatıp kare kare inceleyebilirsiniz.
 
 ## Zaman çizelgesi
 
