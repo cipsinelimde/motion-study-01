@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MOTION / STUDY 01 — 10s</title>
+<meta name="description" content="A 10-second code-driven motion study in kinetic typography and geometric form.">
+<meta name="theme-color" content="#05070d">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MOTION / STUDY 01 — 10s">
+<meta property="og:description" content="A 10-second code-driven motion study in kinetic typography and geometric form.">
+<meta property="og:image" content="https://cipsinelimde.github.io/motion-study-01/poster.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MOTION / STUDY 01 — 10s">
+<meta name="twitter:description" content="A 10-second code-driven motion study in kinetic typography and geometric form.">
+<meta name="twitter:image" content="https://cipsinelimde.github.io/motion-study-01/poster.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#05070d;
+    --ink:#eef1f8;
+    --muted:#7c8699;
+    --violet:#7c5cfc;
+    --cyan:#22d3ee;
+    --pink:#f472b6;
+    --amber:#fbbf24;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Inter","Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+    cursor:crosshair;
+  }
+
+  /* ---------- ambient background ---------- */
+  .bg{
+    position:fixed;inset:-20%;
+    background:
+      radial-gradient(42% 42% at 22% 26%, rgba(124,92,252,.42) 0%, transparent 62%),
+      radial-gradient(40% 40% at 78% 30%, rgba(34,211,238,.30) 0%, transparent 62%),
+      radial-gradient(46% 46% at 62% 82%, rgba(244,114,182,.26) 0%, transparent 64%),
+      radial-gradient(38% 38% at 30% 84%, rgba(251,191,36,.14) 0%, transparent 60%);
+    filter:blur(58px) saturate(120%);
+    animation:drift 22s ease-in-out infinite alternate;
+    z-index:0;
+  }
+  @keyframes drift{
+    0%{transform:translate3d(-2%,-1%,0) scale(1) rotate(0deg)}
+    100%{transform:translate3d(3%,2%,0) scale(1.12) rotate(7deg)}
+  }
+  .grid{
+    position:fixed;inset:0;z-index:1;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.055) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(circle at 50% 48%, #000 30%, transparent 78%);
+    -webkit-mask-image:radial-gradient(circle at 50% 48%, #000 30%, transparent 78%);
+    opacity:0;
+  }
+  .noise{
+    position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.055;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .vignette{
+    position:fixed;inset:0;z-index:30;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 48%, transparent 42%, rgba(3,5,10,.72) 100%);
+  }
+  .sweep{
+    position:fixed;top:-10%;bottom:-10%;left:0;width:38vw;z-index:31;pointer-events:none;
+    background:linear-gradient(100deg, transparent 0%, rgba(255,255,255,.05) 44%, rgba(255,255,255,.11) 50%, rgba(255,255,255,.05) 56%, transparent 100%);
+    filter:blur(10px);
+    transform:translateX(-160%) skewX(-13deg);
+    opacity:0;
+    will-change:transform,opacity;
+  }
+
+  /* ---------- hud ---------- */
+  .hud{position:fixed;z-index:35;font-family:"Space Grotesk",monospace;pointer-events:none}
+  .hud.tl{top:26px;left:30px;display:flex;align-items:center;gap:11px}
+  .hud.tr{top:26px;right:30px;text-align:right}
+  .dot{
+    width:7px;height:7px;border-radius:50%;background:var(--pink);
+    box-shadow:0 0 0 3px rgba(244,114,182,.16),0 0 14px rgba(244,114,182,.9);
+    animation:pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.72)}}
+  .hud .big{font-size:11.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase}
+  .hud .sm{font-size:10px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;margin-top:3px}
+
+  /* ---------- ruler ---------- */
+  .ruler{
+    position:fixed;right:30px;top:50%;transform:translateY(-50%);
+    z-index:35;display:flex;flex-direction:column;gap:9px;align-items:flex-end;
+    pointer-events:none;
+  }
+  .ruler i{display:block;height:1px;width:8px;background:rgba(255,255,255,.18)}
+  .ruler i:nth-child(5n+1){width:18px;background:rgba(255,255,255,.38)}
+
+  /* ---------- stage ---------- */
+  .stage{
+    position:fixed;inset:0;z-index:10;
+    display:grid;place-items:center;
+    perspective:1200px;
+  }
+  .layer{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+
+  .orb{
+    position:absolute;width:56vmin;height:56vmin;border-radius:50%;
+    background:radial-gradient(circle at 38% 34%, rgba(124,92,252,.55), rgba(34,211,238,.18) 46%, transparent 68%);
+    filter:blur(24px);
+  }
+  .rings{position:absolute;width:74vmin;height:74vmin}
+  .rings circle{fill:none;stroke-linecap:round}
+
+  /* ---------- kinetic words ---------- */
+  .words{position:absolute;inset:0;z-index:2}
+  .word{
+    position:absolute;left:50%;top:50%;
+    transform:translate(-50%,-50%);
+    display:flex;gap:.012em;
+    perspective:900px;
+    will-change:transform;
+    font-family:"Space Grotesk","Inter",sans-serif;
+  }
+  .letter{
+    display:inline-block;
+    font-weight:700;
+    font-size:clamp(3.6rem, 15.5vw, 13.5rem);
+    line-height:.9;
+    letter-spacing:-.055em;
+    will-change:transform,opacity,filter;
+    transform-origin:50% 58%;
+    background:linear-gradient(178deg,#ffffff 0%,#dfe4f2 38%,#9aa6c7 100%);
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;
+    text-shadow:0 0 0 rgba(0,0,0,0);
+  }
+  .word.design .letter{
+    background:linear-gradient(176deg,#8ff3ff 0%,#22d3ee 34%,#7c5cfc 72%,#f472b6 100%);
+    -webkit-background-clip:text;background-clip:text;
+  }
+
+  /* ---------- geometry ---------- */
+  .shapes{position:absolute;inset:0;display:grid;place-items:center}
+  .shape{position:absolute;will-change:transform,opacity}
+  .shape.back{z-index:1}
+  .shape.front{z-index:3}
+  .ring-sh{
+    width:44vmin;height:44vmin;border-radius:50%;
+    border:1px solid rgba(244,114,182,.55);
+    box-shadow:0 0 34px rgba(244,114,182,.22), inset 0 0 34px rgba(244,114,182,.10);
+  }
+  .box-sh{
+    width:18vmin;height:18vmin;
+    border:1px solid rgba(34,211,238,.65);
+    box-shadow:0 0 30px rgba(34,211,238,.22), inset 0 0 26px rgba(34,211,238,.10);
+    border-radius:2px;
+  }
+  .tri-sh{width:30vmin;height:30vmin}
+  .tri-sh svg{width:100%;height:100%;overflow:visible}
+  .dot-sh{
+    width:2.2vmin;height:2.2vmin;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#fff,#fbbf24 60%,#f472b6 100%);
+    box-shadow:0 0 24px rgba(251,191,36,.9),0 0 52px rgba(244,114,182,.55);
+  }
+
+  /* ---------- end card ---------- */
+  .end{
+    position:absolute;display:flex;flex-direction:column;align-items:center;
+    gap:2.2vmin;pointer-events:none;
+  }
+  .mark{width:14vmin;height:14vmin;overflow:visible}
+  .mark path{
+    fill:none;stroke:url(#mg);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;
+  }
+  .ten{
+    font-family:"Space Grotesk","Inter",sans-serif;
+    font-weight:700;letter-spacing:-.06em;line-height:.8;
+    font-size:clamp(5rem,23vw,19rem);
+    color:transparent;
+    background:linear-gradient(160deg,#ffffff 0%,#c9d3ee 44%,#7c5cfc 74%,#22d3ee 100%);
+    -webkit-background-clip:text;background-clip:text;
+    display:flex;align-items:baseline;gap:.04em;
+  }
+  .ten small{
+    font-size:.145em;font-weight:600;letter-spacing:.26em;margin-left:.12em;
+    background:none;-webkit-text-fill-color:var(--muted);color:var(--muted);
+    transform:translateY(-.06em);opacity:.9;
+  }
+  .tag{
+    font-family:"Space Grotesk",monospace;font-size:clamp(9px,1.15vw,13px);
+    letter-spacing:.42em;text-transform:uppercase;color:var(--muted);
+  }
+  .tag b{color:var(--ink);font-weight:600}
+  .rule{height:1px;width:0;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent)}
+
+  /* ---------- timeline ---------- */
+  .timeline{
+    position:fixed;left:30px;right:30px;bottom:24px;z-index:36;
+    display:flex;align-items:center;gap:16px;
+    font-family:"Space Grotesk",monospace;font-size:10.5px;letter-spacing:.16em;
+    color:var(--muted);pointer-events:none;
+  }
+  .tc{min-width:96px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .tc span{color:var(--muted)}
+  .bar{position:relative;flex:1;height:20px;display:flex;align-items:center}
+  .bar .rail{position:absolute;left:0;right:0;height:1px;background:rgba(255,255,255,.14)}
+  .bar .fill{
+    position:absolute;left:0;height:1.5px;width:0;
+    background:linear-gradient(90deg,var(--cyan),var(--violet) 55%,var(--pink));
+    box-shadow:0 0 12px rgba(124,92,252,.7);
+  }
+  .bar .head{
+    position:absolute;left:0;width:8px;height:8px;border-radius:50%;
+    transform:translate(-50%,-50%);top:50%;
+    background:var(--ink);box-shadow:0 0 0 3px rgba(238,241,248,.14),0 0 16px rgba(34,211,238,.9);
+  }
+  .bar .ticks{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center}
+  .bar .ticks i{width:1px;height:5px;background:rgba(255,255,255,.16)}
+  .loop{display:flex;align-items:center;gap:7px;color:var(--muted)}
+  .loop svg{width:12px;height:12px;animation:spin 6s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .hint{
+    position:fixed;left:50%;bottom:52px;transform:translateX(-50%);
+    z-index:36;font-family:"Space Grotesk",monospace;font-size:9.5px;
+    letter-spacing:.3em;text-transform:uppercase;color:rgba(124,134,153,.55);
+    transition:opacity .6s ease;pointer-events:none;
+  }
+  .hint.hide{opacity:0}
+
+  @media (max-width:640px){
+    .hud.tr,.ruler{display:none}
+    .timeline{left:18px;right:18px;bottom:18px}
+    .tc{min-width:78px;font-size:9.5px}
+  }
+</style>
+</head>
+<body>
+  <div class="bg" id="bg"></div>
+  <div class="grid" id="grid"></div>
+  <div class="sweep"></div>
+
+  <div class="hud tl">
+    <span class="dot"></span>
+    <div>
+      <div class="big">Motion / Study 01</div>
+      <div class="sm">code-driven &nbsp;·&nbsp; 10.0s loop</div>
+    </div>
+  </div>
+  <div class="hud tr">
+    <div class="big">10.0 s</div>
+    <div class="sm">seamless loop · 60 fps</div>
+  </div>
+  <div class="ruler" id="ruler"></div>
+
+  <div class="stage" id="stage">
+    <!-- background orb -->
+    <div class="layer">
+      <div class="orb" id="orb"></div>
+    </div>
+
+    <!-- rings -->
+    <div class="layer">
+      <svg class="rings" id="rings" viewBox="0 0 100 100">
+        <defs>
+          <linearGradient id="rg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#7c5cfc"/>
+          </linearGradient>
+          <linearGradient id="rg2" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f472b6"/><stop offset="1" stop-color="#7c5cfc"/>
+          </linearGradient>
+        </defs>
+        <circle id="ring1" cx="50" cy="50" r="40" stroke="url(#rg1)" stroke-width="0.22" stroke-dasharray="182 69" opacity="0"/>
+        <circle id="ring2" cx="50" cy="50" r="46" stroke="url(#rg2)" stroke-width="0.14" stroke-dasharray="60 229" opacity="0"/>
+        <circle id="ring3" cx="50" cy="50" r="33" stroke="rgba(255,255,255,.32)" stroke-width="0.09" stroke-dasharray="4 8" opacity="0"/>
+      </svg>
+    </div>
+
+    <!-- kinetic words -->
+    <div class="words">
+      <div class="word motion" id="wordMotion"></div>
+      <div class="word design" id="wordDesign"></div>
+    </div>
+
+    <!-- geometry -->
+    <div class="shapes" id="shapes">
+      <div class="shape ring-sh back" id="shRing"></div>
+      <div class="shape box-sh back" id="shBox"></div>
+      <div class="shape tri-sh back" id="shTri">
+        <svg viewBox="0 0 100 100"><defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#f472b6"/></linearGradient></defs><polygon points="50,8 92,86 8,86" fill="none" stroke="url(#tg)" stroke-width="1.1" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="shape dot-sh front" id="shDot"></div>
+    </div>
+
+    <!-- end card -->
+    <div class="end" id="end">
+      <svg class="mark" id="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <defs>
+          <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#22d3ee"/><stop offset=".5" stop-color="#7c5cfc"/><stop offset="1" stop-color="#f472b6"/>
+          </linearGradient>
+        </defs>
+        <path id="markPath" d="M18 74 L18 30 L50 66 L82 30 L82 74"/>
+      </svg>
+      <div class="ten" id="ten">10<small>SEC</small></div>
+      <div class="rule" id="rule"></div>
+      <div class="tag" id="tag">A <b>motion</b> study in typography &amp; form</div>
+    </div>
+  </div>
+
+  <div class="hint" id="hint">click · pause / resume</div>
+
+  <div class="timeline">
+    <div class="tc"><span id="tc">0:00.0</span> / 0:10.0</div>
+    <div class="bar">
+      <div class="rail"></div>
+      <div class="fill" id="fill"></div>
+      <div class="ticks" id="ticks"></div>
+      <div class="head" id="head"></div>
+    </div>
+    <div class="loop">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 01-4 4H3"/></svg>
+      LOOP
+    </div>
+  </div>
+
+<script>
+/* ============================================================
+   MOTION / STUDY 01  —  a 10-second code-driven motion piece
+   ============================================================ */
+const DUR = 10;                    // seconds
+const $ = (id) => document.getElementById(id);
+const clamp = (v,a=0,b=1) => Math.min(b,Math.max(a,v));
+const lin   = (t) => t;
+const outExpo = (t) => t>=1 ? 1 : 1 - Math.pow(2, -10*t);
+const inExpo  = (t) => t<=0 ? 0 : Math.pow(2, 10*t-10);
+const outCubic= (t) => 1 - Math.pow(1-t,3);
+const inCubic = (t) => t*t*t;
+const inOutCubic = (t) => t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+const outBack = (t) => { const c1=1.70158, c3=c1+1; return 1 + c3*Math.pow(t-1,3) + c1*Math.pow(t-1,2); };
+const outQuint= (t) => 1 - Math.pow(1-t,5);
+
+/* numeric / object keyframe interpolation */
+function lerp(a,b,p){
+  if(typeof a === 'number') return a + (b-a)*p;
+  const o = {};
+  for(const k in a) o[k] = lerp(a[k], b[k], p);
+  return o;
+}
+function track(t, keys){
+  if(t <= keys[0].t) return keys[0].v;
+  for(let i=1;i<keys.length;i++){
+    if(t <= keys[i].t){
+      const a=keys[i-1], b=keys[i];
+      const p = clamp((t-a.t)/(b.t-a.t));
+      return lerp(a.v, b.v, (b.e || lin)(p));
+    }
+  }
+  return keys[keys.length-1].v;
+}
+
+/* ---------- build letter nodes ---------- */
+function makeWord(host, text){
+  const letters = [];
+  host.innerHTML = '';
+  for(const ch of text){
+    const s = document.createElement('span');
+    s.className = 'letter';
+    s.textContent = ch;
+    host.appendChild(s);
+    letters.push(s);
+  }
+  return letters;
+}
+const motionLetters = makeWord($('wordMotion'), 'MOTION');
+const designLetters = makeWord($('wordDesign'), 'DESIGN');
+
+/* ---------- static rulers & ticks ---------- */
+$('ruler').innerHTML = Array.from({length:31}, () => '<i></i>').join('');
+$('ticks').innerHTML  = Array.from({length:11}, () => '<i></i>').join('');
+
+/* ============================================================
+   THE TIMELINE
+   ============================================================ */
+const E = {
+  /* ---- MOTION : in 0.55 -> out 3.9 ---- */
+  motion(i){
+    const s = 0.55 + i*0.115;
+    const e = 2.95 + i*0.075;
+    return [
+      {t:0,   v:{y:120, ry:-88, sc:.55, o:0, b:18, rx:14}, e:outExpo},
+      {t:s,   v:{y:120, ry:-88, sc:.55, o:0, b:18, rx:14}, e:outExpo},
+      {t:s+1.05, v:{y:0, ry:0, sc:1, o:1, b:0, rx:0}, e:outExpo},
+      {t:e,   v:{y:0, ry:0, sc:1, o:1, b:0, rx:0}},
+      {t:e+0.62, v:{y:-120, ry:44, sc:1.22, o:0, b:14, rx:-10}, e:inCubic},
+      {t:DUR, v:{y:-120, ry:44, sc:1.22, o:0, b:14, rx:-10}}
+    ];
+  },
+  /* ---- DESIGN : in 4.45 -> out 7.55 ---- */
+  design(i){
+    const s = 4.45 + i*0.105;
+    const e = 6.55 + i*0.055;
+    return [
+      {t:0,   v:{y:-115, ry:70, sc:.6, o:0, b:16, rx:-10}},
+      {t:s,   v:{y:-115, ry:70, sc:.6, o:0, b:16, rx:-10}},
+      {t:s+.9, v:{y:0, ry:0, sc:1, o:1, b:0, rx:0}, e:outExpo},
+      {t:e,   v:{y:0, ry:0, sc:1, o:1, b:0, rx:0}},
+      {t:e+.55, v:{y:0, ry:0, sc:1.34, o:0, b:22, rx:0}, e:inExpo},
+      {t:DUR, v:{y:0, ry:0, sc:1.34, o:0, b:22, rx:0}}
+    ];
+  }
+};
+
+/* shapes: 3.0 -> 7.4 */
+const sh = (i) => {
+  const s = 3.05 + i*0.14, e = 7.15 + i*0.05;
+  return [
+    {t:0, v:{sc:0, o:0, rot:0, x:0, y:0}},
+    {t:s, v:{sc:0, o:0, rot:-60, x:0, y:0}},
+    {t:s+.65, v:{sc:1, o:1, rot:0, x:0, y:0}, e:outBack},
+    {t:s+1.9, v:{sc:1, o:1, rot:(i%2?40:-40), x:(i%2?1:-1)*0, y:0}, e:inOutCubic},
+    {t:e, v:{sc:1, o:1, rot:(i%2?40:-40), x:0, y:0}},
+    {t:e+.5, v:{sc:1.45, o:0, rot:(i%2?110:-110), x:0, y:0}, e:inCubic},
+    {t:DUR, v:{sc:1.45, o:0, rot:0, x:0, y:0}}
+  ];
+};
+
+/* ============================================================
+   RENDER LOOP
+   ============================================================ */
+const nodes = {
+  orb:$('orb'), grid:$('grid'),
+  ring1:$('ring1'), ring2:$('ring2'), ring3:$('ring3'), rings:$('rings'),
+  shapes:$('shapes'), sweep:document.querySelector('.sweep'), shRing:$('shRing'), shBox:$('shBox'), shTri:$('shTri'), shDot:$('shDot'),
+  end:$('end'), mark:$('mark'), markPath:$('markPath'), ten:$('ten'), rule:$('rule'), tag:$('tag'),
+  wordMotion:$('wordMotion'), wordDesign:$('wordDesign'),
+  fill:$('fill'), head:$('head'), tc:$('tc')
+};
+
+let t = 0, last = performance.now(), paused = false;
+const startAt = performance.now();
+
+function render(time){
+  /* -------- global fade for a seamless loop -------- */
+  const fadeIn  = clamp(time/0.35);
+  const fadeOut = clamp((DUR-time)/0.45);
+  const globalA = Math.min(fadeIn, fadeOut);
+
+  /* -------- background -------- */
+  nodes.grid.style.opacity = (0.55 * clamp((time-0.15)/0.9) * (time>7.3? clamp((DUR-time)/0.6):1)).toFixed(3);
+  nodes.orb.style.opacity  = (0.9 * globalA).toFixed(3);
+  const orbScale = 0.55 + 0.55*outCubic(clamp(time/2.4)) + Math.sin(time*0.9)*0.02;
+  nodes.orb.style.transform = `scale(${orbScale}) translate(${Math.sin(time*0.6)*10}px, ${Math.cos(time*0.5)*8}px)`;
+
+  /* -------- rings -------- */
+  const ringIn = outCubic(clamp((time-0.1)/1.2));
+  const ringOut = clamp((time-2.6)/1.1);
+  nodes.rings.style.transform = `rotate(${time*7}deg) scale(${0.7+0.3*ringIn + 0.18*ringOut})`;
+  nodes.rings.style.opacity = (0.9 * ringIn * (1 - ringOut) * globalA).toFixed(3);
+  nodes.ring1.style.strokeDashoffset = String(-time*26);
+  nodes.ring2.style.strokeDashoffset = String(time*18);
+  nodes.ring3.style.opacity = (0.5 + 0.5*Math.sin(time*3)).toFixed(3);
+
+  /* -------- MOTION letters -------- */
+  motionLetters.forEach((el,i)=>{
+    const v = track(time, E.motion(i));
+    const floatY = Math.sin(time*2.1 + i*0.6) * 3.2 * clamp(v.o);
+    const floatR = Math.cos(time*1.6 + i*0.5) * 0.55 * clamp(v.o);
+    el.style.opacity = v.o.toFixed(3);
+    el.style.transform =
+      `translate3d(0, ${(v.y+floatY).toFixed(2)}px, 0) `+
+      `rotateY(${(v.ry+floatR).toFixed(2)}deg) rotateX(${v.rx}deg) scale(${v.sc.toFixed(3)})`;
+    el.style.filter = v.b>0.05 ? `blur(${v.b.toFixed(2)}px)` : 'none';
+  });
+
+  /* -------- DESIGN letters -------- */
+  designLetters.forEach((el,i)=>{
+    const v = track(time, E.design(i));
+    const floatY = Math.sin(time*2.4 + i*0.7 + 1) * 3.4 * clamp(v.o);
+    el.style.opacity = v.o.toFixed(3);
+    el.style.transform =
+      `translate3d(0, ${(v.y+floatY).toFixed(2)}px, 0) `+
+      `rotateY(${v.ry.toFixed(2)}deg) rotateX(${v.rx}deg) scale(${v.sc.toFixed(3)})`;
+    el.style.filter = v.b>0.05 ? `blur(${v.b.toFixed(2)}px)` : 'none';
+  });
+
+  /* -------- geometry : converge, then open up around the word -------- */
+  const spread = outCubic(clamp((time-3.82)/0.95));
+  const offK = Math.min(1, innerWidth/1440);
+  const OFF = [[-54,-3],[43,-27],[47,19],[0,0]];
+  const geo = [
+    [nodes.shRing, sh(0),  0, 0],
+    [nodes.shBox,  sh(1), 45, 1],
+    [nodes.shTri,  sh(2),  0, 2],
+    [nodes.shDot,  sh(3),  0, 3]
+  ];
+  geo.forEach(([el,keys,base,idx])=>{
+    const v = track(time, keys);
+    const orbit = time*0.85 + idx*1.7 + base*0.02;
+    const r = idx===3 ? (7 + 27*spread) : 0;
+    const ox = Math.cos(orbit)*r + OFF[idx][0]*spread*offK;
+    const oy = Math.sin(orbit)*r + OFF[idx][1]*spread*offK;
+    el.style.opacity = v.o.toFixed(3);
+    el.style.transform =
+      `translate3d(${ox.toFixed(2)}vmin, ${oy.toFixed(2)}vmin, 0) `+
+      `rotate(${(v.rot+base).toFixed(2)}deg) scale(${v.sc.toFixed(3)})`;
+  });
+
+  /* -------- light sweep on each act change -------- */
+  let sx = null;
+  for(const st of [0.18, 3.92, 7.32]){
+    const p = (time - st)/1.55;
+    if(p > 0 && p < 1) sx = -50 + 165*inOutCubic(p);
+  }
+  if(sx === null){
+    nodes.sweep.style.opacity = '0';
+  } else {
+    nodes.sweep.style.opacity = '1';
+    nodes.sweep.style.transform = `translateX(${sx.toFixed(2)}vw) skewX(-13deg)`;
+  }
+
+  /* -------- end card -------- */
+  const markDraw = clamp((time-7.55)/1.05);
+  nodes.markPath.style.strokeDasharray = '260';
+  nodes.markPath.style.strokeDashoffset = String(260 * (1 - outCubic(markDraw)));
+  nodes.mark.style.opacity = markDraw>0 ? '1' : '0';
+  nodes.mark.style.transform = `scale(${(0.85 + 0.15*outBack(clamp(markDraw))).toFixed(3)}) rotate(${(-8*(1-markDraw)).toFixed(2)}deg)`;
+
+  const tenIn = clamp((time-7.78)/0.9);
+  nodes.ten.style.opacity = tenIn ? '1' : '0';
+  nodes.ten.style.transform = `translateY(${(26*(1-outBack(tenIn))).toFixed(2)}px) scale(${(0.92+0.08*outExpo(tenIn)).toFixed(3)})`;
+  nodes.ten.style.filter = tenIn<1 ? `blur(${(8*(1-tenIn)).toFixed(2)}px)` : 'none';
+
+  const ruleIn = clamp((time-8.35)/0.85);
+  nodes.rule.style.width = (18*outExpo(ruleIn)).toFixed(2) + 'vmin';
+  nodes.rule.style.opacity = ruleIn.toFixed(3);
+
+  const tagIn = clamp((time-8.55)/0.8);
+  nodes.tag.style.opacity = outCubic(tagIn).toFixed(3);
+  nodes.tag.style.transform = `translateY(${(10*(1-outCubic(tagIn))).toFixed(2)}px)`;
+  nodes.tag.style.letterSpacing = (0.42 - 0.04*outCubic(tagIn)).toFixed(3) + 'em';
+
+  /* whole end card gentle settle */
+  nodes.end.style.opacity = (clamp((time-7.45)/0.25) * clamp((DUR-time)/0.3)).toFixed(3);
+  nodes.end.style.transform = `translateY(${(6*(1-outCubic(clamp((time-7.45)/0.7)))).toFixed(2)}px)`;
+
+  /* -------- HUD / timeline -------- */
+  const p = time / DUR;
+  nodes.fill.style.width = (p*100).toFixed(2) + '%';
+  nodes.head.style.left = (p*100).toFixed(2) + '%';
+  const clamped = Math.min(DUR - 0.001, time);
+  const sec = Math.floor(clamped);
+  const tenth = Math.floor((clamped - sec)*10);
+  nodes.tc.textContent = `0:0${sec}.${tenth}`;
+}
+
+/* ============================================================
+   CLOCK  —  real-time playback, seamless 10 s loop
+   ============================================================ */
+const hint = $('hint');
+
+let lastTick = performance.now();
+
+function frame(now){
+  const dt = Math.min(0.05, (now - lastTick) / 1000);
+  lastTick = now;
+
+  if(!paused) t = (t + dt) % DUR;
+  render(t);
+
+  requestAnimationFrame(frame);
+}
+
+/* ---- controls ---- */
+function togglePause(){
+  paused = !paused;
+  hint.classList.add('hide');
+  hint.textContent = paused ? 'paused · click to resume' : 'click · pause / resume';
+}
+document.addEventListener('pointerdown', togglePause);
+window.addEventListener('keydown', (e) => {
+  if(e.code === 'Space'){ e.preventDefault(); togglePause(); }
+});
+
+/* fade the hint out after a beat */
+setTimeout(() => hint.classList.add('hide'), 3400);
+
+/* go */
+const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduceMotion){
+  paused = true;
+  render(5.15);
+} else {
+  render(0);
+  requestAnimationFrame((n) => { lastTick = n; frame(n); });
+}
+</script>
+</body>
+</html>
